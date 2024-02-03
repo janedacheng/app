@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import os
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -10,12 +11,12 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-
+from dotenv import load_dotenv
+load_dotenv()  # 这会自动加载同一目录下的 .env 文件中的环境变量
 app = Flask(__name__)
 
-# 用你的 Channel access token 和 Channel secret 替換下面的值
-line_bot_api = LineBotApi('md/F4owNkiFhXiVOYu09vtODPRT3jt93sN3gQg30n7KAInTLU9q3oA8GIDBZ8v00b+RJ+uXBYbwmucYGJbHd0uATQRopvzfR4Yg8MHRrE/pzsdnuHnB13+j2b/QEA/BvQTdME1dCyyhJWaZk4ebkzAdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('d6ffc16bb68c2f37522de7533921d202')
+line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
+handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET'))
 
 def get_stock_price(stock_id):
     # 你的爬取股票价格代码
