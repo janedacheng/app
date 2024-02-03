@@ -1,15 +1,17 @@
+from flask_ngrok import run_with_ngrok
+from flask import Flask, request
+
 import requests
 import pandas as pd
 from flask import Flask, request, abort
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
+
+
+
+# 載入 LINE Message API 相關函式庫
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
+
 
 app = Flask(__name__)
 
@@ -81,4 +83,5 @@ def handle_message(event):
     )
 
 if __name__ == "__main__":
-    app.run()
+  run_with_ngrok(app)           # 串連 ngrok 服務
+  app.run()
