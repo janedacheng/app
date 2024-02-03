@@ -1,1 +1,1 @@
-web: python onduty.py
+web: python onduty.py 
